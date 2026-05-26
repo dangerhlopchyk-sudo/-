@@ -64,7 +64,8 @@ def contacts_view(page, user_state):
                         tight=True,
                         controls=[
                             ft.IconButton(ft.Icons.EDIT, on_click=on_redact),
-
+                            ft.IconButton(ft.Icons.DELETE, on_click=on_delete,
+                                          icon_color=ft.Colors.RED),
                         ],
                     ),
                 )
