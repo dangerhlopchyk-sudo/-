@@ -22,7 +22,15 @@ def contacts_view(page, user_state):
         contact_list.controls = list_contact()
         page.update()
 
-
+    sort_dropdown = ft.Dropdown(
+        value="time_add",
+        width=230,
+        options=[
+            ft.DropdownOption(key="time_add", text="За часом додавання"),
+            ft.DropdownOption(key="alfavit", text="За алфавітом"),
+        ],
+        on_select=on_sort_change,
+    )
 
     def list_contact():
         contacts = sorted_contacts(load_contacts())
