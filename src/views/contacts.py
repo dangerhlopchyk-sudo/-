@@ -18,7 +18,36 @@ def contacts_view(page, user_state):
 
         for i, c in enumerate(contacts):
 
+            def on_delete(e, contact=c):
+                def pidtverdshena_delete(e):
+                    all_contacts = load_contacts()
+                    real_index = next(
+                        j for j, x in enumerate(all_contacts)
+                        if x["name"] == contact["name"] and x["phone"] == contact["phone"]
+                    )
+                    delete_contact(real_index)
+                    vikno_delete.open = False
+                    contact_list.controls = list_contact()
+                    page.update()
 
+                def cancel_delete(e):
+                    vikno_delete.open = False
+                    page.update()
+
+                vikno_delete = ft.AlertDialog(
+                    modal=True,
+                    title=ft.Text("Видалити контакт?"),
+                    content=ft.Text(f"Ви впевнені що хочете видалити {contact['name']}?"),
+                    actions=[
+                        ft.TextButton("Скасувати", on_click=cancel_delete),
+                        ft.TextButton("Видалити",
+                                      on_click=pidtverdshena_delete,
+                                      style=ft.ButtonStyle(color=ft.Colors.RED)),
+                    ],
+                )
+                page.overlay.append(vikno_delete)
+                vikno_delete.open = True
+                page.update()
 
             def on_redact(e, contact=c):
                 edit_name = ft.TextField(label="Ім'я", value=contact["name"])
