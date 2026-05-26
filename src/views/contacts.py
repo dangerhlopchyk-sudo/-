@@ -13,44 +13,14 @@ def contacts_view(page, user_state):
 
 
     def list_contact():
-        contacts = sorted_contacts(load_contacts())
+        contacts =(load_contacts())
         tiles = []
 
         for i, c in enumerate(contacts):
 
 
 
-            def on_redact(e, contact=c):
-                edit_name = ft.TextField(label="Ім'я", value=contact["name"])
-                edit_phone = ft.TextField(label="Номер", value=contact["phone"])
 
-                def save_edit(e):
-                    all_contacts = load_contacts()
-                    real_index = next(
-                        j for j, x in enumerate(all_contacts)
-                        if x["name"] == contact["name"] and x["phone"] == contact["phone"]
-                    )
-                    edit_contact(real_index, edit_name.value.strip(), edit_phone.value.strip())
-                    vicno_redact.open = False
-                    contact_list.controls = list_contact()
-                    page.update()
-
-                def skasuvaty_edit(e):
-                    vicno_redact.open = False
-                    page.update()
-
-                vicno_redact = ft.AlertDialog(
-                    modal=True,
-                    title=ft.Text("Редагувати контакт"),
-                    content=ft.Column([edit_name, edit_phone], tight=True),
-                    actions=[
-                        ft.TextButton("Скасувати", on_click=skasuvaty_edit),
-                        ft.TextButton("Зберегти", on_click=save_edit),
-                    ],
-                )
-                page.overlay.append(vicno_redact)
-                vicno_redact.open = True
-                page.update()
 
 
             tiles.append(
@@ -61,11 +31,7 @@ def contacts_view(page, user_state):
                     title=ft.Text(c["name"]),
                     subtitle=ft.Text(c["phone"]),
                     trailing=ft.Row(
-                        tight=True,
-                        controls=[
-                            ft.IconButton(ft.Icons.EDIT, on_click=on_redact),
 
-                        ],
                     ),
                 )
             )
