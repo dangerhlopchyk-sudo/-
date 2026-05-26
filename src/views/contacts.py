@@ -11,6 +11,18 @@ def contacts_view(page, user_state):
 
     sorting = {"mode": "time_add"}
 
+    def sorted_contacts(contacts):
+        if sorting["mode"] == "alfavit":
+            return sorted(contacts, key=lambda c: c["name"].lower())
+        else:
+            return sorted(contacts, key=lambda c: c["data_add"], reverse=True)
+
+    def on_sort_change(e):
+        sorting["mode"] = sort_dropdown.value
+        contact_list.controls = list_contact()
+        page.update()
+
+
 
     def list_contact():
         contacts = sorted_contacts(load_contacts())
