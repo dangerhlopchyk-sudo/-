@@ -3,7 +3,8 @@ from src.models import load_contacts, delete_contact, edit_contact
 
 def contacts_view(page, user_state):
 
-
+    async def new_contact(e):
+        await page.push_route("/add_contact")
 
     async def go_to_search(e):
         await page.push_route("/search")
