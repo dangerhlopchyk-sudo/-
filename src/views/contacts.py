@@ -113,7 +113,13 @@ def contacts_view(page, user_state):
             ft.AppBar(title=ft.Text("Контакти"),
                       actions=[ft.IconButton(ft.Icons.SEARCH,
                                              on_click = go_to_search)]),
-
+            ft.Container(
+                content=ft.Row(
+                    controls=[ft.Text("Сортування:", size=14), sort_dropdown],
+                    spacing=8,
+                ),
+                padding=ft.padding.symmetric(horizontal=16, vertical=6),
+            ),
             contact_list,
 
 
